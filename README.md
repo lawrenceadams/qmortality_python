@@ -1,8 +1,10 @@
 # QMortality Python
 
-QMortality®-2017 re-written in python.
+[QMortality®-2017](https://qmortality.org) algorithm re-written in python.
 
-The orginial QMortality®-2017 algorithm is written in C, and is availabel [here](https://qmortality.org/src.php).
+The orginial QMortality®-2017 algorithm is written in C, and is available on the [website here](https://qmortality.org/src.php), as well as in [`qmortality.c`](./qmortality.c) in this repository.
+
+Please note that this is a re-implementation of the algorithm, and although the output of both the original and this implementation should be the same (testing of such is performed in [`tests/test_qmort.py`](./tests/test_qmort.py)), there is no guarantee that this is the case. Please see the additional terms below.
 
 ## Additional Terms
 ```
@@ -19,4 +21,4 @@ The orginial QMortality®-2017 algorithm is written in C, and is availabel [here
 
 ## Covariates
 
-For documentation on the covariates, please see the docstring in the code.
+For documentation on the covariates, please see the associated docstring in [`qmortality.py`](./qmortality.py).
