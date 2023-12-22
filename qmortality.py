@@ -95,8 +95,8 @@ def qmortality_female(
 
         ethrisk (int): Ethnicity risk.
             Categorical:
-                0. White/Other
-                1. White/Other (Unclear)
+                0. IGNORE
+                1. White/Not stated
                 2. Indian
                 3. Pakistani
                 4. Bangladeshi
@@ -385,8 +385,8 @@ def qmortality_male(
 
         ethrisk (int): Ethnicity risk.
             Categorical:
-                0. White/Other
-                1. White/Other (Unclear)
+                0. IGNORE
+                1. White/Not stated
                 2. Indian
                 3. Pakistani
                 4. Bangladeshi
