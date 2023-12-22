@@ -37,6 +37,12 @@ def qmortality_female(
     surv: int,
     town: float,
 ) -> int:
+    if not (65 <= age <= 99):
+        raise ValueError(
+            """QMortality is only validated for
+            those between 65 and 99"""
+        )
+
     survivor = [0, 0.984712481498718, 0.971753656864166]
 
     # Conditional Arrays
@@ -190,45 +196,194 @@ def qmortality_female(
     return round(score, 6)
 
 
-s = qmortality_female(
-    75,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    40,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    2
-)
+def qmortality_male(
+    age: int,
+    alcohol_cat6: int,
+    b_AF: int,
+    b_CCF: int,
+    b_antipsychotic: int,
+    b_anycancer: int,
+    b_asthmacopd: int,
+    b_carehome: int,
+    b_corticosteroids: int,
+    b_cvd: int,
+    b_dementia: int,
+    b_epilepsy: int,
+    b_learning: int,
+    b_legulcer: int,
+    b_liverpancreas: int,
+    b_parkinsons: int,
+    b_poormobility: int,
+    b_ra: int,
+    b_renal: int,
+    b_type1: int,
+    b_type2: int,
+    b_vte: int,
+    bmi: float,
+    c_hb: int,
+    ethrisk: int,
+    hes_admitprior_cat: int,
+    high_lft: int,
+    high_platlet: int,
+    s1_appetiteloss: int,
+    s1_dyspnoea: int,
+    s1_weightloss: int,
+    smoke_cat: int,
+    surv: int,
+    town: float,
+) -> int:
+    if not (65 <= age <= 99):
+        raise ValueError(
+            """QMortality is only validated for
+            those between 65 and 99"""
+        )
 
-print(s)
-print(round(s,6))
+    survivor = [0, 0.979335904121399, 0.962403774261475]
 
-def qmortality_male() -> int:
-    return 0
+    # The conditional arrays
+
+    Ialcohol = [
+        0,
+        -0.1670844407126692300000000,
+        -0.1984775465343032700000000,
+        -0.1481206908943630300000000,
+        0.1097143852986619500000000,
+        0.1572539481934535100000000,
+    ]
+
+    Iethrisk = [
+        0,
+        0,
+        -0.2496516371723966100000000,
+        -0.2604999046323979700000000,
+        -0.2413372075528693600000000,
+        -0.4039422283482116400000000,
+        -0.3469711098824575500000000,
+        -0.3460308859209734700000000,
+        -0.4427277401781518600000000,
+        -0.2894268920968387500000000,
+    ]
+
+    Ihesprior = [
+        0,
+        0.6893479417592939300000000,
+        1.0537662135368995000000000,
+        1.4406087084524641000000000,
+    ]
+
+    Ismoke = [
+        0,
+        0.1673226649436864200000000,
+        0.5362630762243528700000000,
+        0.6407130012942968700000000,
+        0.7614277535578453100000000,
+    ]
+
+    age = age / 10
+    age_1 = pow(age, 3)
+    age_2 = pow(age, 3) * math.log(age)
+
+    bmi = bmi / 10
+    bmi_1 = pow(bmi, -2)
+    bmi_2 = pow(bmi, -2) * math.log(bmi)
+
+    # == Centring the continuous variables ==
+
+    age_1 = age_1 - 412.159576416015620
+    age_2 = age_2 - 827.260681152343750
+    bmi_1 = bmi_1 - 0.134313449263573
+    bmi_2 = bmi_2 - 0.134822428226471
+    town = town - -0.768538892269135
+
+    a = 0.0
+
+    # == The conditional sums ==
+
+    a += Ialcohol[alcohol_cat6]
+    a += Iethrisk[ethrisk]
+    a += Ihesprior[hes_admitprior_cat]
+    a += Ismoke[smoke_cat]
+
+    # == Sum from continuous values ==
+
+    a += age_1 * 0.0364492644166237310000000
+    a += age_2 * -0.0125513976128844830000000
+    a += bmi_1 * 8.3843196334505148000000000
+    a += bmi_2 * -14.4911690106904880000000000
+    a += town * 0.0358643099768692840000000
+
+    # == Sum from boolean values ==
+
+    a += b_AF * 0.2465279525693932800000000
+    a += b_CCF * 0.5540322748712921400000000
+    a += b_antipsychotic * 0.4673978463823100200000000
+    a += b_anycancer * 0.7155414192122093700000000
+    a += b_asthmacopd * 0.1404894072064609100000000
+    a += b_carehome * 0.4774974014027468800000000
+    a += b_corticosteroids * 0.4481418756060280800000000
+    a += b_cvd * 0.2194911837532663700000000
+    a += b_dementia * 0.8522424041080243200000000
+    a += b_epilepsy * 0.2197845325169507900000000
+    a += b_learning * 0.1979056386390294900000000
+    a += b_legulcer * 0.5072563658779597500000000
+    a += b_liverpancreas * 0.3926368758303394000000000
+    a += b_parkinsons * 0.7699075007624237600000000
+    a += b_poormobility * 0.4636703234891170800000000
+    a += b_ra * 0.1710977161105810000000000
+    a += b_renal * 0.6222474594582343400000000
+    a += b_type1 * 0.2596072126726758900000000
+    a += b_type2 * 0.2540481149046456300000000
+    a += b_vte * 0.1494077781555818700000000
+    a += c_hb * 0.7429469783577908900000000
+    a += high_lft * 0.5155476478294301900000000
+    a += high_platlet * 0.3209799632176834100000000
+    a += s1_appetiteloss * 0.3032010214130507800000000
+    a += s1_dyspnoea * 0.2502379577768637000000000
+    a += s1_weightloss * 0.2145758111816661600000000
+
+    # == Sum from interaction terms ==
+
+    a += age_1 * (hes_admitprior_cat == 1) * -0.0135322423270525740000000
+    a += age_1 * (hes_admitprior_cat == 2) * -0.0164299728696469010000000
+    a += age_1 * (hes_admitprior_cat == 3) * -0.0184197127049686400000000
+    a += age_1 * b_CCF * -0.0056375981438788851000000
+    a += age_1 * b_antipsychotic * 0.0009548576479661841100000
+    a += age_1 * b_anycancer * -0.0314278775562004190000000
+    a += age_1 * b_carehome * 0.0029194351023528052000000
+    a += age_1 * b_corticosteroids * -0.0087098588393828367000000
+    a += age_1 * b_cvd * -0.0009260547411723817600000
+    a += age_1 * b_dementia * -0.0042226968131332939000000
+    a += age_1 * b_legulcer * -0.0043408879675686162000000
+    a += age_1 * b_liverpancreas * -0.0111686614530641680000000
+    a += age_1 * b_parkinsons * 0.0008607979528495537700000
+    a += age_1 * b_poormobility * -0.0032122568132298144000000
+    a += age_1 * b_renal * -0.0062987873913596228000000
+    a += age_1 * b_type2 * 0.0008544005178976435600000
+    a += age_1 * c_hb * -0.0010907260684175104000000
+    a += age_1 * high_lft * -0.0165293867518887800000000
+    a += age_1 * s1_dyspnoea * -0.0000752211436665368820000
+    a += age_1 * town * -0.0002671760093771602800000
+    a += age_2 * (hes_admitprior_cat == 1) * 0.0052599500739404469000000
+    a += age_2 * (hes_admitprior_cat == 2) * 0.0062723155776391801000000
+    a += age_2 * (hes_admitprior_cat == 3) * 0.0068996134993599611000000
+    a += age_2 * b_CCF * 0.0020360323212952713000000
+    a += age_2 * b_antipsychotic * -0.0005926479240096812300000
+    a += age_2 * b_anycancer * 0.0122622021504616000000000
+    a += age_2 * b_carehome * -0.0014190910591964706000000
+    a += age_2 * b_corticosteroids * 0.0031204374807641592000000
+    a += age_2 * b_cvd * 0.0002812823037133820200000
+    a += age_2 * b_dementia * 0.0011909366650632758000000
+    a += age_2 * b_legulcer * 0.0014618943884676750000000
+    a += age_2 * b_liverpancreas * 0.0042685310892839612000000
+    a += age_2 * b_parkinsons * -0.0007190407274926735200000
+    a += age_2 * b_poormobility * 0.0010674563935602573000000
+    a += age_2 * b_renal * 0.0021250162138427274000000
+    a += age_2 * b_type2 * -0.0004960689010456265700000
+    a += age_2 * c_hb * 0.0000336997335926709000000
+    a += age_2 * high_lft * 0.0065189455055333261000000
+    a += age_2 * s1_dyspnoea * -0.0001531268243922576800000
+    a += age_2 * town * 0.0000675839250316827290000
+
+    # /* Calculate the score itself */
+    score = 100.0 * (1 - pow(survivor[surv], math.exp(a)))
+    return round(score, 6)
