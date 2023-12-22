@@ -84,7 +84,7 @@ def test_qmortality_female():
 
 
 def test_qmortality_male():
-    male_1 = qmortality_female(
+    male_1 = qmortality_male(
         age=70,
         alcohol_cat6=2,
         b_AF=1,
