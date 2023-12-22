@@ -189,17 +189,17 @@ static double female_raw(
 
 
 int main() {
-    int age = 100;
-    int alcohol_cat6 = 1;
-    int b_AF = 1;
-    int b_CCF = 1;
+    int age = 75;
+    int alcohol_cat6 = 0;
+    int b_AF = 0;
+    int b_CCF = 0;
     int b_antipsychotic = 0;
     int b_anycancer = 0;
     int b_asthmacopd = 0;
     int b_carehome = 0;
     int b_corticosteroids = 0;
     int b_cvd = 0;
-    int b_dementia = 1;
+    int b_dementia = 0;
     int b_epilepsy = 0;
     int b_learning = 0;
     int b_legulcer = 0;
@@ -207,22 +207,22 @@ int main() {
     int b_parkinsons = 0;
     int b_poormobility = 0;
     int b_ra = 0;
-    int b_renal = 2;
-    int b_type1 = 2;
+    int b_renal = 0;
+    int b_type1 = 0;
     int b_type2 = 0;
     int b_vte = 0;
-    double bmi = 40.2;
+    double bmi = 40;
     int c_hb = 0;
     int ethrisk = 0;
-    int hes_admitprior_cat = 2;
-    int high_lft = 1;
-    int high_platlet = 1;
-    int s1_appetiteloss = 1;
+    int hes_admitprior_cat = 0;
+    int high_lft = 0;
+    int high_platlet = 0;
+    int s1_appetiteloss = 0;
     int s1_dyspnoea = 0;
     int s1_weightloss = 0;
-    int smoke_cat = 1;
-    int surv = 0;
-    double town = 0.1;
+    int smoke_cat = 0;
+    int surv = 1;
+    double town = 2;
 
     double result = female_raw(age, alcohol_cat6, b_AF, b_CCF, b_antipsychotic, b_anycancer, b_asthmacopd, b_carehome, b_corticosteroids,
                                 b_cvd, b_dementia, b_epilepsy, b_learning, b_legulcer, b_liverpancreas, b_parkinsons, b_poormobility,

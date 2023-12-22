@@ -80,10 +80,9 @@ def qmortality_female(
 
     # Applying fractional polynomial transforms
 
-    age = float(age)
-    age / 10
-    age_2: float = (age**-2) * math.log(age)
-    age_1: float = age**-2
+    age = age / 10
+    age_2: float = pow(age, -2) * math.log(age)
+    age_1: float = pow(age, -2)
 
     bmi = bmi / 10
     bmi_2 = pow(bmi, -0.5)
@@ -188,14 +187,14 @@ def qmortality_female(
 
     # == Calculate the score ==
     score = 100.0 * (1 - pow(survivor[surv], math.exp(a)))
-    return score
+    return round(score, 6)
 
 
 s = qmortality_female(
-    100,
-    2,
-    1,
-    1,
+    75,
+    0,
+    0,
+    0,
     0,
     0,
     0,
@@ -223,13 +222,13 @@ s = qmortality_female(
     0,
     0,
     0,
+    0,
     1,
-    2,
-    0.1
+    2
 )
 
 print(s)
-
+print(round(s,6))
 
 def qmortality_male() -> int:
     return 0
